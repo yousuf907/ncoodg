@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Controlling Neural Collapse Enhances Out-of-Distribution Detection and Transfer Learning">
+  <meta name="keywords" content="OOD Generalization">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controlling Neural Collapse Enhances Out-of-Distribution Detection and Transfer Learning</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Controlling Neural Collapse Enhances Out-of-Distribution Detection and Transfer Learning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://yousuf907.github.io">Md Yousuf Harun</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://jhairgallardo.github.io">Jhair Gallardo</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://chriskanan.com">Christopher Kanan</a><sup>2</sup></span>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Rochester Institute of Technology,</span>
+            <span class="author-block"><sup>2</sup>University of Rochester</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2502.10691"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/yousuf907/NC-OOD"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+
+          <div class="column has-text-centered">
+            <p style="font-size: 1.5em; color: #d55e00; font-weight: bold;">
+              Accepted to ICML 2025
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Motivation</h2>
+        <div class="content has-text-justified">
+
+          <p>
+            Out-of-distribution (OOD) detection and OOD generalization are widely studied in Deep Neural Networks (DNNs), yet their relationship 
+            remains poorly understood. We empirically show that the degree of Neural Collapse (NC) in a network layer is inversely related with 
+            these objectives: stronger NC improves OOD detection but degrades generalization, while weaker NC enhances generalization at the cost 
+            of detection. This trade-off suggests that a single feature space cannot simultaneously achieve both tasks. To address this, we develop 
+            a theoretical framework linking NC to OOD detection and generalization. We show that entropy regularization mitigates NC to improve 
+            generalization, while a fixed Simplex Equiangular Tight Frame (ETF) projector enforces NC for better detection. Based on these insights, 
+            we propose a method to control NC at different DNN layers. In experiments, our method excels at both tasks across OOD datasets and DNN 
+            architectures.
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Relationship between NC and OOD Detection/Generalization</h2>
+      <img src="./static/images/nc_ood_detect_transfer_corr_vgg_updated.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+      <h2 class="subtitle has-text-justified">    
+        <FONT COLOR="#d55e00"><b>In this paper, we show that there is a close inverse relationship between OOD detection and generalization 
+          with respect to the degree of representation collapse in DNN layers. This plot illustrates this relationship for VGG17 pre-trained 
+          on ImageNet-100 using four OOD datasets, where we measure collapse and OOD performance for various layers. For OOD detection, there 
+          is a strong positive Pearson correlation (R = 0.77) with the degree of neural collapse (NC1) in a DNN layer, whereas for OOD 
+          generalization, there is a strong negative correlation (R=−0.60). We rigorously examine this inverse relationship and propose a method 
+          to control NC at different layers.</b></FONT>
+      </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Controlling Neural Collapse</h2>
+      <img src="./static/images/control_nc_implication.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+      <h2 class="subtitle has-text-justified">  
+        Mitigating neural collapse (NC) in the encoder improves OOD generalization, while promoting NC in the projector enhances 
+        OOD detection. To jointly optimize both objectives, our method integrates entropy regularization and a fixed simplex ETF 
+        projector. Entropy regularization reduces NC in the encoder, thereby improving OOD generalization, whereas the ETF projector 
+        induces NC in the final layer, leading to better OOD detection.
+      </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Neural Collapse Correlates with Entropy</h2>
+      <img src="./static/images/entropy_nc_corr_updated.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+      <h2 class="subtitle has-text-justified">  
+        The stronger the neural collapse (NC1), the lower the entropy and vice-versa. We analyze different layers of VGG17 networks 
+        that are pre-trained on the ImageNet-100 (ID) dataset. R denotes the Pearson correlation coefficient.
+      </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">UMAP Visualization of Embedding</h2>
+      <img src="./static/images/umap_enc_proj_10c_ce.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+      <h2 class="subtitle has-text-justified">  
+        The projector embeddings exhibit much greater NC (NC1 = 0.393) than the encoder embeddings (NC1 = 2.175) as indicated by the 
+        formation of compact clusters around class means. For clarity, we highlight 10 ImageNet classes by distinct colors. For this, we 
+        use ImageNet-100 pre-trained VGG17.
+      </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Shared Title and Caption -->
+    <div class="content has-text-centered">
+      <h2 class="title is-3">OOD Detection & Generalization Performance</h2>
+      <p>
+        We train various DNNs on ImageNet-100 (ID) and evaluate OOD generalization and detection using eight OOD datasets. Our 
+        method effectively optimizes both objectives. The encoder mitigates neural collapse (NC) and enhances OOD generalization, 
+        while the ETF projector amplifies NC and improves OOD detection. Compared to baselines, our method consistently improves 
+        both OOD detection and generalization across diverse DNN architectures.
+      </p>
+    </div>
+
+    <!-- Two Side-by-Side Figures -->
+    <div class="columns is-centered">
+      
+      <!-- UMAP Figure -->
+      <div class="column">
+        <div class="content has-text-centered">
+          <h3 class="title is-5">OOD Detection</h3>
+          <img src="./static/images/baseline_barplot_det.png"
+               class="interpolation-image"
+               alt="OOD Detection"/>
+        </div>
+      </div>
+
+      <!-- Energy Score Figure -->
+      <div class="column">
+        <div class="content has-text-centered">
+          <h3 class="title is-5">OOD Generalization</h3>
+          <img src="./static/images/baseline_barplot_gen.png"
+               class="interpolation-image"
+               alt="OOD Generalization"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">UMAP Visualization of ID & OOD Data</h2>
+          <p align="justify">
+            The projector exhibits a greater separation between ID and OOD embeddings than the encoder.
+            For clarity, we show ImageNet-10 as ID data and NINCO-64 as OOD data.
+          </p>
+          <img src="./static/images/umap_enc_proj_10c_IN_ninco_64_vgg17.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column">
+        <h2 class="title is-3">Energy Score Distribution of ID & OOD Data</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p align="justify">
+              The projector exhibits a greater separation between ID and OOD energy scores than the encoder.
+              For ID and OOD datasets, we show ImageNet-100 and NINCO-64, respectively.
+            </p>
+            <img src="./static/images/energy_ood_ninco.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Matting. -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Energy Score Distribution - Flowers-102 OOD Dataset</h2>
+          <p align="justify">
+            The projector creates a greater separation between ID and OOD data and achieves a lower FPR95 than the encoder.
+          </p>
+          <img src="./static/images/energy_ood_flower.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column">
+        <h2 class="title is-3">Energy Score Distribution - STL-10 OOD Dataset</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p align="justify">
+              The projector better separates ID and OOD data, achieving a lower FPR95 than the encoder.
+            </p>
+            <img src="./static/images/energy_ood_stl.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Matting. -->
+
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Analyzing Entropy Regularization & L2 Normalization</h2>
+        <p>
+          <b>(a)</b> Entropy regularization reduces neural collapse (indicated by higher NC1 values) in the encoder. 
+        </p>
+        <p>
+          <b>(b)</b> Entropy regularization increases the entropy of encoder embeddings otherwise entropy remains unchanged. 
+        </p>
+        <p>
+          <b>(c)</b> Entropy regularization increases the effective rank of encoder embeddings otherwise effective rank remains as 
+              low as the number of classes (i.e., 10 ImageNet classes).
+        </p>
+        <p>
+          <b>(d)</b> L2 normalization increases neural collapse (indicated by lower NC1 values) in the projector. 
+        </p>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <h2 class="title is-3">(a) NC1</h2>
+          <img src="./static/images/train_dynamics.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+        </div>
+        <div class="item item-chair-tp">
+          <h2 class="title is-3">(b) Entropy</h2>
+          <img src="./static/images/train_dynamics_entropy.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+        </div>
+        <div class="item item-shiba">
+          <h2 class="title is-3">(c) Eff. Rank</h2>
+          <img src="./static/images/train_dynamics_rank.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+        </div>
+        <div class="item item-fullbody">
+          <h2 class="title is-3">(d) L2 Norm</h2>
+          <img src="./static/images/train_dynamics_l2.png"
+          class="interpolation-image"
+          alt="Interpolation end reference image."/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section" id="ACKNOWLEDGMENTS">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgements</h2>
+    <p>
+      This work was partly supported by NSF awards #2326491, #2125362, and #2317706.
+    </p>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{harun2025controlling,
+  title     = {Controlling Neural Collapse Enhances Out-of-Distribution Detection and Transfer Learning},
+  author    = {Harun, Md Yousuf and Gallardo, Jhair and Kanan, Christopher},
+  journal   = {arXiv preprint arXiv:2502.10691},
+  year      = {2025}
+  }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://github.com/yousuf907" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p> 
+            This website is adapted from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+              licensed under a <a rel="license"
+                                  href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
